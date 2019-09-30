@@ -1,3 +1,5 @@
+const Game = require('./Game')
+
 module.exports = class GameMaster {
 
     constructor() {
@@ -10,8 +12,7 @@ module.exports = class GameMaster {
             throw creatorId + " already has an open game!"
         }
 
-        let epoch = new Date().getTime()
-        let newGame = { created: epoch, owner: creatorId, game: 'new game' }
+        let newGame = new Game(creatorId)
         this.games[creatorId] = newGame
     }
 
@@ -20,7 +21,6 @@ module.exports = class GameMaster {
     }
 
     printGames() {
-        console.log(this.games)
-        return this.games
+        return JSON.stringify(this.games)
     }
 }
