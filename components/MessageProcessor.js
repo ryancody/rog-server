@@ -1,6 +1,6 @@
 const ee = require('./EventManager').emitter
 
-exports.process = (message) => {
+exports.process = (message, fromSocket) => {
 
     try{
         message = parse(message)
@@ -22,6 +22,15 @@ exports.process = (message) => {
         case 'CLOSE_GAME':
             ee.emit('CLOSE_GAME', null, message.from)
             break
+
+        case 'UPDATE_USER_INFO':
+            console.log('user data',message.data)
+            message.data.socket = fromSocket
+            ee.emit('UPDATE_USER_INFO', null, message.data)
+            break
+
+        case 'PRINT_USERS':
+            ee.emit('PRINT_USERS', null)
 
         default:
             console.log('received',message)

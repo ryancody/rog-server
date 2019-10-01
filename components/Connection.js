@@ -16,25 +16,24 @@ exports.broadcast = (message) => {
     })
 }
 
-updatePlayerInfo = (id, name, socket) => {
-    clients.push({
-        id: id,
-        name: name,
-        socket: socket
-    })
+exports.updateClientInfo = (data) => {
+    clients[data.socket] = {
+        id: data.id,
+        name: data.name,
+        socket: data.socket
+    }
 }
 
 exports.start = () => {
 
     wss.on('connection', (ws) => {
 
-        ws.send('Welcome!\n  Sincerely, server')
-        wss.broadcast('player joined!')
-        this.printConnections()
+        ws.send('Welcome!\n -The Server')
+        ws.send(JSON.stringify({type:'GET_USER_INFO'}))
 
         ws.on('message', (message) => {
 
-            mp.process(message)
+            mp.process(message, ws)
         })
     })
 
@@ -46,4 +45,10 @@ exports.printConnections = () => {
     wss.clients.forEach((client) => {
         client.send(wss.clients.size + ' client(s) connected!')
     })
+
+    return clients
+}
+
+exports.printUsers = () => {
+    console.log()
 }

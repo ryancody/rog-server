@@ -1,3 +1,7 @@
 module.exports = {
-    PORT: 8080
+    PORT: 8080,
+    NEW_GAME: 'NEW_GAME',
+    CLOSE_GAME: 'CLOSE_GAME',
+    PRINT_GAMES: 'PRINT_GAMES',
+    UPDATE_USER_INFO: 'UPDATE_USER_INFO'
 }
