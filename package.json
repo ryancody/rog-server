@@ -10,7 +10,12 @@
   "author": "r.cody",
   "license": "ISC",
   "dependencies": {
+    "redux": "^4.0.4",
     "websocket": "^1.0.30",
     "ws": "^7.1.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1"
   }
 }

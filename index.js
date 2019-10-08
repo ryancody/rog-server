@@ -2,6 +2,7 @@ const conn = require('./components/Connection')
 const ee = require('./components/EventManager').emitter
 const GameMaster = require('./components/GameMaster')
 const gm = new GameMaster()
+const {reducer} = require('./components/StateManager')
 
 console.log('starting...')
 
