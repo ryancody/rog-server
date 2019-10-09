@@ -1,6 +1,6 @@
 const Game = require('./Game')
 
-module.exports = class GameMaster {
+class GameMaster {
 
     constructor() {
         this.games = {}
@@ -24,3 +24,7 @@ module.exports = class GameMaster {
         return JSON.stringify(this.games)
     }
 }
+
+let GameMaster = new GameMaster()
+
+module.exports = GameMaster
