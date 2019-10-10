@@ -1,6 +1,6 @@
 const Game = require('./Game')
 
-class GameMaster {
+module.exports = class GameMaster {
 
     constructor() {
         this.games = {}
@@ -9,11 +9,13 @@ class GameMaster {
     newGame(creatorId) {
 
         if (this.games[creatorId]) {
-            throw creatorId + " already has an open game!"
+            throw new Error(creatorId + " already has an open game!")
         }
 
         let newGame = new Game(creatorId)
         this.games[creatorId] = newGame
+
+        return newGame
     }
 
     closeGame(id) {
@@ -24,7 +26,3 @@ class GameMaster {
         return JSON.stringify(this.games)
     }
 }
-
-let GameMaster = new GameMaster()
-
-module.exports = GameMaster
