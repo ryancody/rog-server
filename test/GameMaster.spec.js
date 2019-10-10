@@ -3,11 +3,13 @@ let GameMaster = require('../components/GameMaster')
 
 describe('test GameMaster class', function () {
 
+    let date
     let gm = new GameMaster()
     let id = 'tester'
 
     it('Adds a created game to games list', function () {
         
+        date = new Date().getTime()
         let newGame = gm.newGame(id)
         assert.equal(newGame, gm.games[id])
     })
@@ -19,6 +21,7 @@ describe('test GameMaster class', function () {
 
     it('prints games', function () {
 
+        assert.equal(gm.printGames(), JSON.stringify(gm.games))
     })
 
     it('closes a game', function () {
