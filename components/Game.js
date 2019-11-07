@@ -5,6 +5,10 @@ module.exports = class Game {
         this.state = {}
         this.created = new Date().getTime()
         this.owner = creator
+        this.players = []
     }
 
+    addPlayer (id) {
+        this.players.push(id)
+    }
 }
