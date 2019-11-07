@@ -9,19 +9,21 @@ console.log('starting...')
 // open websocket
 conn.start()
 
-// EVENT LISTENERS
-ee.on('NEW_GAME', (err, data) => {
+//  *** EVENT LISTENERS *** //
+
+ee.on('NEW_GAME', (err, fromSocket) => {
     if(err) throw err
     try {
-        gm.newGame(data)
+        gm.newGame(conn.getIdFromSocket(fromSocket))
     } catch (e) {
+        conn.sendToSocket(fromSocket, JSON.stringify({type:'ERROR', message:'You already have an open game!'}))
         console.error(e)
     }
 })
 
-ee.on('CLOSE_GAME', (err, data) => {
+ee.on('CLOSE_GAME', (err, id) => {
     if(err) throw err
-    gm.closeGame(data)
+    gm.closeGame(id)
 })
 
 ee.on('PRINT_GAMES', (err) => {

@@ -4,16 +4,33 @@ const wss = new WebSocket.Server({ port: globals.PORT });
 const mp = require('./MessageProcessor')
 let clients = {}
 
-wss.broadcast = (data) => {
-    wss.clients.forEach((client) => {
-        client.send(data);
+/* *** CLIENTS SCHEMA
+clients[socket] = {
+    id: id,
+    name: name,
+    socket: socket
+}
+*** */
+
+exports.broadcast = (message) => {
+    this.broadcast(message, wss.clients)
+}
+
+exports.broadcast = (message, toClients) => {
+    
+    toClients.foreach((client) => {
+        client.send(message)
     })
 }
 
-exports.broadcast = (message) => {
-    wss.clients.forEach((client) => {
-        client.send(message);
-    })
+exports.sendToSocket = (socket, message) => {
+
+    //console.log('sending to ' + this.getIdFromSocket(socket))
+    socket.send(message)
+}
+
+exports.getIdFromSocket = (socket) => {
+    return clients[socket].id
 }
 
 exports.updateClientInfo = (data) => {

@@ -8,14 +8,20 @@ module.exports = class GameMaster {
 
     newGame(creatorId) {
 
-        if (this.games[creatorId]) {
-            throw new Error(creatorId + " already has an open game!")
+        if (this.getGame(creatorId)) {
+            throw creatorId + ' already has an open game!'
         }
+
+        console.log('creating new game for ' + creatorId)
 
         let newGame = new Game(creatorId)
         this.games[creatorId] = newGame
 
         return newGame
+    }
+
+    getGame(id) {
+        return this.games[id]
     }
 
     closeGame(id) {

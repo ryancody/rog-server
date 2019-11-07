@@ -1,5 +1,10 @@
 const ee = require('./EventManager').emitter
 
+/* *** MESSAGE SCHEMA ***
+
+
+*** */
+
 exports.process = (message, fromSocket) => {
 
     try{
@@ -12,7 +17,7 @@ exports.process = (message, fromSocket) => {
     switch (message.type) {
 
         case 'NEW_GAME':
-            ee.emit('NEW_GAME', null, message.from)
+            ee.emit('NEW_GAME', null, fromSocket)
             break
 
         case 'PRINT_GAMES':
@@ -31,6 +36,12 @@ exports.process = (message, fromSocket) => {
 
         case 'PRINT_USERS':
             ee.emit('PRINT_USERS', null)
+            break
+
+        case 'JOIN_GAME':
+            console.log(message.from + ' wants to join game ' + message.data.joinId)
+            ee.emit('USER_JOIN_GAME', null, message.from, message.data)
+            break
 
         default:
             console.log('received',message)
